@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta>
+  <meta http-equiv="refresh" content="90">
+  <meta name="description" content="Drawing Shapes w/ D3 - " />
+  <meta charset="utf-8">
+  <title>Resources per Project</title>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+  <style type="text/css">
+    h1 {
+      font-size: 35px;
+      color: darkgrey;
+      font-family: Helvetica;
+      border-bottom-width: 3px;
+      border-bottom-style: dashed;
+      border-bottom-color: black;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: black;
+      font-family: Helvetica;
+      text-decoration: underline;
+      margin-left: 290px;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Resources used per Project</h1>
+  <p> <a href="http://plnkr.co/edit/V7wHq5pUpTYIWZ17FT27?p=preview&preview">From this page</a> </p>
+  <p>Choose Month:
+    <select id="label-option">
+      <option value="April">April</option>
+      <option value="May">May</option>
+      <option value="June">June</option>
+      <option value="July">July</option>
+      <option value="August">August</option>
+      <option value="September">September</option>
+    </select>
+    <script type="text/javascript">
+      var width = 800
+      var height = 500
+      var emptyVar = 0
+      var dataArrayProjects = ['2G', 'An', 'At', 'Au', 'AW', 'Ch', 'CI', 'CN']
+      var April = [0.35, 1.66, 3.04, 1.54, 3.45, 2.56, 2.29, 1.37]
+      var May = [0.36, 1.69, 3.08, 1.54, 3.62, 2.61, 2.22, 1.44]
+      var June = [0.34, 1.7, 3.08, 1.63, 3.66, 2.68, 2.24, 1.51]
+      var July = [0.3, 1.72, 3.17, 1.67, 3.56, 2.56, 2.17, 1.44]
+      var August = [0.28, 1.79, 3.18, 1.71, 3.62, 2.73, 2.26, 1.54]
+      var September = [1.23, 1.74, 3.12, 1.61, 3.66, 2.71, 2.2, 1.48]
+      var widthScale = d3.scale.linear()
+        .domain([0, 4])
+        .range([0, width - 60]);
+
+      d3.select("#label-option").on("change", change)
+
+      function change() {
+        var data = April;
+        if (this.selectedIndex == 1){
+          data = May;
+        } else if (this.selectedIndex == 2){
+          data = June;
+        } else if (this.selectedIndex == 3){
+          data = July;
+        } else if (this.selectedIndex == 4){
+          data = August;
+        } else if (this.selectedIndex == 5){
+          data = September;
+        }
+        canvas.selectAll("rect")
+        .data(data)
+        .attr("width", emptyVar)
+        .attr("height", 50)
+        .attr("fill", function(d) {
+          return color(d)
+        })
+        .attr("y", function(d, i) {
+          return i * 55
+        })
+       bars.transition()
+        .duration(1500)
+        .delay(200)
+        .attr("width", function(d) {
+          return widthScale(d);
+        })
+      }
+
+      var heightScale = d3.scale.ordinal()
+        .domain(dataArrayProjects)
+        .rangePoints([10, height - 85]);
+
+      var color = d3.scale.linear()
+        .domain([0, 4])
+        .range(["#000066", "#22abff"])
+
+      var axis = d3.svg.axis()
+        .ticks("10")
+        .scale(widthScale);
+
+      var yAxis = d3.svg.axis()
+        .scale(heightScale)
+        .orient("left");
+
+      var canvas = d3.select("body")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(40, 0)");
+
+      var bars = canvas.selectAll("rect")
+        .data(April)
+        .enter()
+        .append("rect")
+        .attr("width", emptyVar)
+        .attr("height", 50)
+        .attr("fill", function(d) {
+          return color(d)
+        })
+        .attr("y", function(d, i) {
+          return i * 55
+        })
+
+      canvas.append("g")
+        .attr("transform", "translate(0, 430)")
+        .attr("font-family", "Helvetica")
+        .attr("font-size", "15px")
+        .call(axis);
+
+      canvas.append("g")
+        .attr("font-family", "Helvetica")
+        .attr("font-size", "15px")
+        .style("fill", "black")
+        .attr("class", "y axis")
+        .call(yAxis);
+
+      bars.transition()
+        .duration(1500)
+        .delay(200)
+        .attr("width", function(d) {
+          return widthScale(d);
+        })
+    </script>
+    <h2>Resources</h2>
+</body>
+
+</html>

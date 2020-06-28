@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta>
+  <meta charset="utf-8">
+  <title>GSW 2015 Points</title>
+
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+  <style type="text/css">
+    h1 {
+      font-size: 35px;
+      color: darkgrey;
+      font-family: Helvetica;
+      border-bottom: 3px solid gray;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: black;
+      font-family: Helvetica;
+      text-decoration: underline;
+      margin-left: 290px;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>2015 NBA Finals Points - Golden State Warriors</h1>
+
+  <p>Choose Game:
+    <select id="label-option">
+      <option value="game1">Game 1</option>
+      <option value="game2">Game 2</option>
+      <option value="game3">Game 3</option>
+      <option value="game4">Game 4</option>
+      <option value="game5">Game 5</option>
+      <option value="game6">Game 6</option>
+    </select>
+    <script type="text/javascript">
+      var width = 800
+      var height = 700
+      var emptyVar = 0
+      // var dataArrayProjects = ['2G', 'An', 'At', 'Au', 'AW', 'Ch', 'CI', 'CN', 'ee']
+      // var April = [0.35, 1.66, 3.04, 1.54, 3.45, 2.56, 2.29, 1.37, 3]
+      // var May = [0.36, 1.69, 3.08, 1.54, 3.62, 2.61, 2.22, 1.44]
+      // var June = [0.34, 1.7, 3.08, 1.63, 3.66, 2.68, 2.24, 1.51]
+      // var July = [0.3, 1.72, 3.17, 1.67, 3.56, 2.56, 2.17, 1.44]
+      // var August = [0.28, 1.79, 3.18, 1.71, 3.62, 2.73, 2.26, 1.54]
+      // var September = [1.23, 1.74, 3.12, 1.61, 3.66, 2.71, 2.2, 1.48]
+
+      var dataArrayProjects = ['Steph Curry','Klay Thompson','Draymond Green','Harrison Barnes','Andrew Bogut','Andre Iguodala','Marreese Speights','Festus Ezeli','Shaun Livingston','Leandro Barbosa','Justin Holiday','David Lee','']
+
+      var game1 = [26,21,12,11,4,15,8,5,4,2,0,0,0]
+      var game2 = [19,34,10,11,2,7,0,2,3,5,0,0,0]
+      var game3 = [27,12,7,0,4,15,0,5,4,4,0,11,0]
+      var game4 = [22,9,17,14,0,22,1,0,7,2,0,9,0]
+      var game5 = [37,12,16,8,0,14,0,0,2,13,0,2,0]
+      var game6 = [25,5,16,9,0,25,0,10,10,5,0,0,0]
+
+      var widthScale = d3.scale.linear()
+        .domain([0, 40])
+        .range([0, width - 60]);
+
+      d3.select("#label-option").on("change", change)
+
+      function change() {
+        var data = game1;
+        if (this.selectedIndex == 1){
+          data = game2;
+        } else if (this.selectedIndex == 2){
+          data = game3;
+        } else if (this.selectedIndex == 3){
+          data = game4;
+        } else if (this.selectedIndex == 4){
+          data = game5;
+        } else if (this.selectedIndex == 5){
+          data = game6;
+        }
+        canvas.selectAll("rect")
+        .data(data)
+        .attr("width", emptyVar)
+        .attr("height", 50)
+        .attr("fill", function(d) {
+          return color(d)
+        })
+        .attr("y", function(d, i) {
+          return i * 55
+        })
+
+
+       bars.transition()
+        .duration(1500)
+        .delay(200)
+        .attr("width", function(d) {
+          return widthScale(d);
+        })
+      }
+
+      var heightScale = d3.scale.ordinal()
+        .domain(dataArrayProjects)
+        .rangePoints([0, height -30]);
+//here
+      var color = d3.scale.linear()
+        .domain([0, 40])
+        .range(["#000066", "#22abff"])
+
+      var axis = d3.svg.axis()
+        .ticks("10")
+        .scale(widthScale);
+
+      var yAxis = d3.svg.axis()
+        .scale(heightScale)
+        .orient("left");
+
+      var canvas = d3.select("body")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(140, 10)");
+
+      var bars = canvas.selectAll("rect")
+        .data(game1)
+        .enter()
+        .append("rect")
+        .attr("width", emptyVar)
+        .attr("height", 50)
+        .attr("fill", function(d) {
+          return color(d)
+        })
+        .attr("y", function(d, i) {
+          return (i * 55)
+        })
+
+
+      canvas.append("g")
+        .attr("transform", "translate(0, 664)")
+        .attr("font-family", "Helvetica")
+        .attr("font-size", "15px")
+        .call(axis);
+
+      canvas.append("g")
+        .attr("font-family", "Helvetica")
+        .attr("font-size", "15px")
+        .style("fill", "black")
+        .attr("class", "y axis")
+        .call(yAxis);
+
+      bars.transition()
+        .duration(1500)
+        .delay(200)
+        .attr("width", function(d) {
+          return widthScale(d);
+        })
+
+
+    </script>
+</body>
+
+</html>

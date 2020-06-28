@@ -1,0 +1,30 @@
+.chart div {
+  font: 12px sans-serif;
+  /* background-color: steelblue; */
+  text-align: right;
+  padding: 4px;
+  margin: 10px;
+  color: white;
+}
+
+.chart div:hover {
+  background-color: gold;
+}
+
+.gsw {
+  background-color: steelblue;
+}
+
+.cavs {
+  background-color: indianred;
+
+}
+
+#dashboard {
+  width: 800px;
+  border: 1px solid black;
+}
+
+p {
+  text-align: center;
+}
