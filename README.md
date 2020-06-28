@@ -1,7 +1,7 @@
 # gswProjectD3
 
 
-In this project I was experimenting with creating some basic bar and donut graphs with D3.
+In this project I was experimenting with creating some basic bar and donut charts with D3.
 Some of the examples
 I hacked together from other works.
 
