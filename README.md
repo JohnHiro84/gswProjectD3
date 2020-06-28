@@ -1,8 +1,8 @@
-# gswProjectD3
+# Golden State Warriors D3 Project
 
 
 In this project I was experimenting with creating some basic bar and donut charts with D3.
-Some of the examples
+The data is from the 2015 NBA Finals. Some of the examples
 I hacked together from other works.
 
 The first example is a basic bar chart.
@@ -21,4 +21,11 @@ The third example is another bar chart where a user can
 
 # How to install
 
-In order to run this project on your computer Node.js and http-server must be installed in the project directory. Once installed, run http-server and navigate to localhost:8080 in your web browser.
+In order to run this project on your computer,
+ Node.js and http-server must be installed.
+
+Once installed, run:
+```
+http-server 
+```
+Then navigate to localhost:8080 in your web browser.
